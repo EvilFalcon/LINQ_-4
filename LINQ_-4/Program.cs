@@ -11,7 +11,7 @@ namespace LINQ__4
             const int CountOfTops = 3;
 
             FactoryPlayer factoryPlayer = new FactoryPlayer();
-            List<Player> players = new List<Player>(factoryPlayer.Create());
+            List<Player> players = new List<Player>(factoryPlayer.CreateList());
 
             Console.WriteLine(new string('_', 40));
             Console.WriteLine("Весь список игроков");
@@ -41,9 +41,6 @@ namespace LINQ__4
 
     public class Player
     {
-        public int Level { get; }
-        public int PowerPoints { get; }
-        public int Id { get; }
 
         public Player(int level, int powerPoints, int id)
         {
@@ -51,6 +48,10 @@ namespace LINQ__4
             PowerPoints = powerPoints;
             Id = id;
         }
+
+        public int Level { get; }
+        public int PowerPoints { get; }
+        public int Id { get; }
 
         public void ShowInfo()
         {
@@ -60,10 +61,10 @@ namespace LINQ__4
 
     public class FactoryPlayer
     {
-        private static readonly Random s_random = new Random();
-        private int s_ids = 1;
+        private static readonly Random _random = new Random();
+        private int _ids = 1;
 
-        public List<Player> Create()
+        public List<Player> CreateList()
         {
             int maxLevel = 1000;
             int minLevel = 1;
@@ -71,18 +72,18 @@ namespace LINQ__4
             int minPower = 1;
             int maxCountPlayer = 10;
             int minCountPlayer = 5;
-            int randomCountPlayer = s_random.Next(minCountPlayer, maxCountPlayer + 1);
+            int randomCountPlayer = _random.Next(minCountPlayer, maxCountPlayer + 1);
             int level;
             int power;
             List<Player> players = new List<Player>();
 
             for (int i = 0; i < randomCountPlayer; i++)
             {
-                level = s_random.Next(minLevel, maxLevel + 1);
-                power = s_random.Next(minPower, maxPower + 1);
+                level = _random.Next(minLevel, maxLevel + 1);
+                power = _random.Next(minPower, maxPower + 1);
 
-                players.Add(new Player(level, power, s_ids));
-                s_ids++;
+                players.Add(new Player(level, power, _ids));
+                _ids++;
             }
 
             return players;
